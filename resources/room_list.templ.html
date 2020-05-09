@@ -25,11 +25,13 @@
         <script>
             $(document).ready(function() {
                 debugger
-                {{range $i, $v := .}}
 
-                {{end}}
+               /*
+
+                */
                 console.log()
             });
+
 
         </script>
         <style>
@@ -62,7 +64,20 @@
             <div class="container">
                 <h1>聊天室</h1>
 
-                <p></p>
+
+
+                <ul>
+                {{range .list}}
+
+                   <li>
+                       <p>
+                           <a href="/">{{.ChatRoomName}}</a> 创建人：{{.CreateBy}}
+
+                       </p>
+                   </li>
+                {{end}}
+
+                </ul>
                 <div class="row">
 
                     <div class="col-md-4">

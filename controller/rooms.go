@@ -9,6 +9,7 @@ import (
 	"html"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -34,8 +35,6 @@ func Room(roomid string) broadcast.Broadcaster {
 	}
 	return b
 }
-
-
 
 func RateLimit(c *gin.Context) {
 	ip := c.ClientIP()
@@ -129,15 +128,18 @@ func StreamRoom(c *gin.Context) {
 	})
 }
 
-
-
 //获取所有聊天室
 func GetRoomList(c *gin.Context) {
-	roomList :=  model.GetCharRooms()
-	jsons, _ := json.Marshal(roomList)
-	fmt.Print(string(jsons))
-	c.HTML(http.StatusOK, "room_list.templ.html", string(jsons))
+	roomList := model.GetCharRooms()
 
+	c.HTML(http.StatusOK, "room_list.templ.html", gin.H{
+		"list": roomList,
+	})
+}
 
-
+//进入聊天室
+func GetRoom(c *gin.Context) {
+	roomid, _ := strconv.Atoi(c.Param("roomid"))
+	room := model.GetChatRoomById(roomid)
+	c.HTML(http.StatusOK, "room_list.templ.html", room)
 }
