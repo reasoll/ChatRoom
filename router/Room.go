@@ -5,7 +5,7 @@ import "ChatRoom/controller"
 func RoomRouter(base string) {
 	r := Router.Group("/" + base)
 
-	r.GET("/roomlist11", controller.GetRoomList)
-	r.GET("/room/:roomid")
+	r.GET("/createroom", controller.CreateRoomPre)
+	r.POST("/createroom", controller.CreateRoom)
 
 }

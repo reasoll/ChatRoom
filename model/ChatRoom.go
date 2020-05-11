@@ -1,10 +1,11 @@
 package model
 
 type ChatRoom struct {
-	ID           int `gorm:"primary_key"`
-	ChatRoomName string
-	CreateBy     string
-	IsAnyous     bool
+	ID             int `gorm:"primary_key"`
+	ChatRoomName   string
+	CreateBy       string
+	IsAnyous       bool
+	WhoComplainted string
 }
 
 //根据id获取chatroom
@@ -17,4 +18,8 @@ func GetChatRoomById(id int) (chatroom ChatRoom) {
 func GetCharRooms() (ChatRooms []ChatRoom) {
 	db.Find(&ChatRooms)
 	return
+}
+
+func (this *ChatRoom) CreateRoom() error {
+	return db.Create(this).Error
 }

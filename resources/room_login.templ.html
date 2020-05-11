@@ -56,10 +56,9 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>匿名吐槽聊天室</h1>
-                <p>今日吐槽对象：陈翰 </p>
-                <p>The chat and the charts data is provided in realtime using the SSE implementation of <a href="https://github.com/gin-gonic/gin/blob/15b0c49da556d58a3d934b86e3aa552ff224026d/examples/realtime-chat/main.go#L23-L32">Gin Framework</a>.</p>
+                <p>今日吐槽对象：{{.whoComplainted}} </p>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div id="chat-scroll" style="overflow-y:scroll; overflow-x:scroll; height:290px">
                             <table id="table-style" class="table" data-show-header="false">
                                 <thead>
@@ -84,9 +83,9 @@
                         </form>
                         {{else}}
                         <form action="" method="get" class="form-inline">
-                            <legend>Join the SSE real-time chat</legend>
+                            <legend>加入匿名聊天室</legend>
                             <div class="form-group">
-                                <input value='' name="nick" id="nick" placeholder="Your Name" type="text" class="form-control">
+                                <input value='' name="nick" id="nick" placeholder="匿名 名称" type="text" class="form-control">
                             </div>
                             <div class="form-group text-center">
                                 <input type="submit" class="btn btn-success btn-login-submit" value="Join">
@@ -94,45 +93,10 @@
                         </form>
                         {{end}}
                     </div>
-                    <div class="col-md-4">
-                        <div id="messagesChart" class="epoch category10"></div>
-                        <p>
-                        <span style="font-size:20px; color:#1f77b4">◼︎</span> Users<br>
-                        <span style="font-size:20px; color:#ff7f0e">◼︎</span> Inbound messages / sec<br>
-                        <span style="font-size:20px; color:#2ca02c">◼︎</span> Outbound messages / sec<br>
-                        </p>
-                    </div>
+
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <h2>Realtime server Go stats</h2>
-                <div class="col-md-6">
-                    <h3>Memory usage</h3>
-                    <p>
-                    <div id="heapChart" class="epoch category20c"></div>
-                    </p>
-                    <p>
-                    <span style="font-size:20px; color:#1f77b4">◼︎</span> Heap bytes<br>
-                    <span style="font-size:20px; color:#aec7e8">◼︎</span> Stack bytes<br>
-                    </p>
-                </div>
-                <div class="col-md-6">
-                    <h3>Allocations per second</h3>
-                    <p>
-                    <div id="mallocsChart" class="epoch category20b"></div>
-                    </p>
-                    <p>
-                    <span style="font-size:20px; color:#393b79">◼︎</span> Mallocs / sec<br>
-                    <span style="font-size:20px; color:#5254a3">◼︎</span> Frees / sec<br>
-                    </p>
-                </div>
-            </div>
-            <hr>
-            <footer>
-                <p>Created with <span class="glyphicon glyphicon-heart"></span> by <a >Reasol</a></p>
-            </footer>
-        </div>
+
     </body>
 </html>

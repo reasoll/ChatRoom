@@ -18,11 +18,10 @@ func StartGin() {
 	router.LoadHTMLGlob("resources/*.templ.html")
 	router.Static("/static", "resources/static")
 	router.GET("/", controller.Index)
-	router.GET("/roomlist",controller.RoomList )
-	router.GET("/room/:roomid", controller.RoomGET)
+	router.GET("/roomlist", controller.GetRoomList)
+	router.GET("/room/:roomid/:whoComplainted", controller.RoomGET)
 	router.POST("/room-post/:roomid", controller.RoomPOST)
 	router.GET("/stream/:roomid", controller.StreamRoom)
-
 
 	Router = router
 	RoomRouter("roomm")
@@ -34,6 +33,5 @@ func StartGin() {
 	if err := router.Run(":" + port); err != nil {
 		log.Panicf("error: %s", err)
 	}
-
 
 }

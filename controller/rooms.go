@@ -2,7 +2,6 @@ package controller
 
 import (
 	"ChatRoom/model"
-	"encoding/json"
 	"fmt"
 	"github.com/dustin/go-broadcast"
 	"github.com/gin-gonic/gin"
@@ -55,16 +54,9 @@ func Index(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "/room/hn")
 }
 
-func RoomList(c *gin.Context) {
-	c.HTML(http.StatusOK, "room_login.templ.html", gin.H{
-		"roomid":    "testRoom",
-		"nick":      "testNice",
-		"timestamp": time.Now().Unix(),
-	})
-}
-
 func RoomGET(c *gin.Context) {
 	roomid := c.Param("roomid")
+	whoComplainted := c.Param("whoComplainted")
 	nick := c.Query("nick")
 	if len(nick) < 2 {
 		nick = ""
@@ -73,9 +65,10 @@ func RoomGET(c *gin.Context) {
 		nick = nick[0:12] + "..."
 	}
 	c.HTML(http.StatusOK, "room_login.templ.html", gin.H{
-		"roomid":    roomid,
-		"nick":      nick,
-		"timestamp": time.Now().Unix(),
+		"roomid":         roomid,
+		"nick":           nick,
+		"whoComplainted": whoComplainted,
+		"timestamp":      time.Now().Unix(),
 	})
 
 }
@@ -142,4 +135,25 @@ func GetRoom(c *gin.Context) {
 	roomid, _ := strconv.Atoi(c.Param("roomid"))
 	room := model.GetChatRoomById(roomid)
 	c.HTML(http.StatusOK, "room_list.templ.html", room)
+}
+
+//创建聊天室的页面
+func CreateRoomPre(c *gin.Context) {
+
+	c.HTML(http.StatusOK, "create_room.templ.html", model.ChatRoom{})
+}
+
+//创建聊天室
+func CreateRoom(c *gin.Context) {
+
+	ChatRoomName := c.PostForm("ChatRoomName")
+	WhoComplainted := c.PostForm("WhoComplainted")
+	CreateBy := c.PostForm("CreateBy")
+	IsAnyous, _ := strconv.ParseBool(c.PostForm("IsAnyous"))
+
+	chatRoom := model.ChatRoom{0, ChatRoomName, CreateBy, IsAnyous, WhoComplainted}
+	if err := chatRoom.CreateRoom(); err != nil {
+		c.Redirect(http.StatusMovedPermanently, "/room/"+ChatRoomName+"/"+WhoComplainted)
+	}
+
 }
