@@ -152,8 +152,7 @@ func CreateRoom(c *gin.Context) {
 	IsAnyous, _ := strconv.ParseBool(c.PostForm("IsAnyous"))
 
 	chatRoom := model.ChatRoom{0, ChatRoomName, CreateBy, IsAnyous, WhoComplainted}
-	if err := chatRoom.CreateRoom(); err != nil {
-		c.Redirect(http.StatusMovedPermanently, "/room/"+ChatRoomName+"/"+WhoComplainted)
-	}
+	chatRoom.CreateRoom()
+	c.Redirect(http.StatusMovedPermanently, "/room/"+ChatRoomName+"/"+WhoComplainted)
 
 }
