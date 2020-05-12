@@ -16,7 +16,7 @@ func GetChatRoomById(id int) (chatroom ChatRoom) {
 
 //获取全部chatroom
 func GetCharRooms() (ChatRooms []ChatRoom) {
-	db.Find(&ChatRooms)
+	db.Order("id desc").Find(&ChatRooms)
 	return
 }
 

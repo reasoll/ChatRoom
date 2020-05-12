@@ -11,7 +11,7 @@ var Router *gin.Engine
 
 // StartGin starts gin web server with setting router.
 func StartGin() {
-	gin.SetMode(gin.DebugMode)
+	gin.SetMode(gin.ReleaseMode)
 
 	router := gin.New()
 	router.Use(controller.RateLimit, gin.Recovery())
@@ -19,9 +19,10 @@ func StartGin() {
 	router.Static("/static", "resources/static")
 	router.GET("/", controller.Index)
 	router.GET("/roomlist", controller.GetRoomList)
-	router.GET("/room/:roomid/:whoComplainted", controller.RoomGET)
+	router.GET("/room/:roomid", controller.RoomGET)
 	router.POST("/room-post/:roomid/:whoComplainted", controller.RoomPOST)
 	router.GET("/stream/:roomid", controller.StreamRoom)
+	router.GET("/users/:dd", controller.GetUserList)
 
 	Router = router
 	RoomRouter("roomm")

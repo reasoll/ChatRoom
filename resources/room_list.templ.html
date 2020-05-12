@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Server-Sent Events. Room </title>
+        <title>聊天室 </title>
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="https://malsup.github.io/jquery.form.js"></script>
@@ -50,33 +50,24 @@
         <div class="jumbotron">
             <div class="container">
                 <h1>聊天室</h1>
-
-
-
                 <ul>
                 {{range .list}}
-
                    <li>
                        <p>
-                           <a href="/room/{{.ID}}/{{.WhoComplainted}}" >{{.ChatRoomName}}</a> 吐槽对象：{{.WhoComplainted}}
+                           <a href="/room/{{.ID}}" >{{.ChatRoomName}}</a> 吐槽对象：{{.WhoComplainted}}
                        </p>
                    </li>
                 {{end}}
-
                 </ul>
                 <a href="/roomm/createroom">新建</a>
                 <div class="row">
-
                     <div class="col-md-4">
                         <div id="messagesChart" class="epoch category10"></div>
-
                     </div>
                 </div>
             </div>
         </div>
         <div class="container">
-
-
             <hr>
             <footer>
                 <p>Created with <span class="glyphicon glyphicon-heart"></span> by <a >Reasol</a></p>

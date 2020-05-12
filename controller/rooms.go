@@ -45,7 +45,6 @@ func Index(c *gin.Context) {
 
 func RoomGET(c *gin.Context) {
 	roomid := c.Param("roomid")
-	whoComplainted := c.Param("whoComplainted")
 	nick := c.Query("nick")
 	if len(nick) < 2 {
 		nick = ""
@@ -60,7 +59,7 @@ func RoomGET(c *gin.Context) {
 		"ChatRoomName":   room.ChatRoomName,
 		"roomid":         roomid,
 		"nick":           nick,
-		"whoComplainted": whoComplainted,
+		"whoComplainted": room.WhoComplainted,
 		"timestamp":      time.Now().Unix(),
 		"history":        historyList,
 	})
@@ -152,6 +151,6 @@ func CreateRoom(c *gin.Context) {
 
 	chatRoom := model.ChatRoom{0, ChatRoomName, CreateBy, IsAnyous, WhoComplainted}
 	chatRoom.CreateRoom()
-	c.Redirect(http.StatusMovedPermanently, "/room/"+strconv.Itoa(chatRoom.ID)+"/"+WhoComplainted)
+	c.Redirect(http.StatusMovedPermanently, "/room/"+strconv.Itoa(chatRoom.ID))
 
 }
