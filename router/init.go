@@ -20,7 +20,7 @@ func StartGin() {
 	router.GET("/", controller.Index)
 	router.GET("/roomlist", controller.GetRoomList)
 	router.GET("/room/:roomid/:whoComplainted", controller.RoomGET)
-	router.POST("/room-post/:roomid", controller.RoomPOST)
+	router.POST("/room-post/:roomid/:whoComplainted", controller.RoomPOST)
 	router.GET("/stream/:roomid", controller.StreamRoom)
 
 	Router = router

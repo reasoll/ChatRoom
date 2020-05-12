@@ -40,10 +40,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-{{/*            <li class="active"><a href="#">Demo</a></li>*/}}
             <li class="active"><a href="/roomlist">聊天室</a></li>
-            <li><a href="https://gin-gonic.github.io/gin/">Gin Framework</a></li>
-            <li><a href="https://github.com/gin-gonic/gin/tree/master/examples/realtime-advanced">GitHub</a></li>
+
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -60,7 +58,7 @@
 
                    <li>
                        <p>
-                           <a href="/room/{{.ChatRoomName}}/{{.WhoComplainted}}" >{{.ChatRoomName}}</a> 创建人：{{.CreateBy}}
+                           <a href="/room/{{.ID}}/{{.WhoComplainted}}" >{{.ChatRoomName}}</a> 吐槽对象：{{.WhoComplainted}}
                        </p>
                    </li>
                 {{end}}

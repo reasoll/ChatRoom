@@ -36,22 +36,11 @@ func Room(roomid string) broadcast.Broadcaster {
 }
 
 func RateLimit(c *gin.Context) {
-	ip := c.ClientIP()
-	value := int(ips.Add(ip, 1))
-	if value%50 == 0 {
-		fmt.Printf("ip: %s, count: %d\n", ip, value)
-	}
-	if value >= 200 {
-		if value%200 == 0 {
-			fmt.Println("ip blocked")
-		}
-		c.Abort()
-		c.String(http.StatusServiceUnavailable, "you were automatically banned :)")
-	}
+
 }
 
 func Index(c *gin.Context) {
-	c.Redirect(http.StatusMovedPermanently, "/room/hn")
+	c.Redirect(http.StatusMovedPermanently, "/roomlist")
 }
 
 func RoomGET(c *gin.Context) {
@@ -64,22 +53,29 @@ func RoomGET(c *gin.Context) {
 	if len(nick) > 13 {
 		nick = nick[0:12] + "..."
 	}
+	roomidint, _ := strconv.Atoi(roomid)
+	room := model.GetChatRoomById(roomidint)
+	historyList := model.GetComplaints(roomidint)
 	c.HTML(http.StatusOK, "room_login.templ.html", gin.H{
+		"ChatRoomName":   room.ChatRoomName,
 		"roomid":         roomid,
 		"nick":           nick,
 		"whoComplainted": whoComplainted,
 		"timestamp":      time.Now().Unix(),
+		"history":        historyList,
 	})
 
 }
 
 func RoomPOST(c *gin.Context) {
 	roomid := c.Param("roomid")
+	roomidint, _ := strconv.Atoi(roomid)
+	whoComplainted := c.Param("whoComplainted")
 	nick := c.Query("nick")
 	message := c.PostForm("message")
 	message = strings.TrimSpace(message)
 
-	validMessage := len(message) > 1 && len(message) < 200
+	validMessage := len(message) > 1 && len(message) < 2000
 	validNick := len(nick) > 1 && len(nick) < 14
 	if !validMessage || !validNick {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -88,6 +84,8 @@ func RoomPOST(c *gin.Context) {
 		})
 		return
 	}
+	complaint := model.Complaint{0, nick, whoComplainted, message, roomidint}
+	complaint.Create()
 
 	post := gin.H{
 		"nick":    html.EscapeString(nick),
@@ -150,9 +148,10 @@ func CreateRoom(c *gin.Context) {
 	WhoComplainted := c.PostForm("WhoComplainted")
 	CreateBy := c.PostForm("CreateBy")
 	IsAnyous, _ := strconv.ParseBool(c.PostForm("IsAnyous"))
+	fmt.Print(c.PostForm("IsAnyous"), "bool", IsAnyous)
 
 	chatRoom := model.ChatRoom{0, ChatRoomName, CreateBy, IsAnyous, WhoComplainted}
 	chatRoom.CreateRoom()
-	c.Redirect(http.StatusMovedPermanently, "/room/"+ChatRoomName+"/"+WhoComplainted)
+	c.Redirect(http.StatusMovedPermanently, "/room/"+strconv.Itoa(chatRoom.ID)+"/"+WhoComplainted)
 
 }

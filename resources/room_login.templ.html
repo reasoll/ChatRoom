@@ -25,10 +25,14 @@
         <script>
             $(document).ready(function() {
               StartRealtime({{.roomid}}, {{.timestamp}});
+
             });
         </script>
         <style>
-        body { padding-top: 50px; }
+        body {
+            padding-top: 50px;
+            background: #eeeeee;
+        }
         </style>
     </head>
     <body>
@@ -45,9 +49,8 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Demo</a></li>
-            <li><a href="https://gin-gonic.github.io/gin/">Gin Framework</a></li>
-            <li><a href="https://github.com/gin-gonic/gin/tree/master/examples/realtime-advanced">GitHub</a></li>
+              <li ><a href="/roomlist">聊天室</a></li>
+            <li class="active"><a href="#">{{.ChatRoomName}}</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
@@ -55,7 +58,7 @@
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
             <div class="container">
-                <h1>匿名吐槽聊天室</h1>
+                <h1>{{.ChatRoomName}}</h1>
                 <p>今日吐槽对象：{{.whoComplainted}} </p>
                 <div class="row">
                     <div class="col-md-12">
@@ -67,12 +70,20 @@
                                         <th data-field="message" class="col-md-8">Message</th>
                                     </tr>
                                 </thead>
-                                <tbody id="chat"></tbody>
+                                <tbody id="chat">
+                                {{range .history}}
+                                    <tr >
+                                        <td>{{.Username}}</td>
+                                        <td>{{.Content}}</td>
+                                    </tr>
+                                {{end}}
+                                </tbody>
                             </table>
                         </div>
                         {{if .nick}}
-                        <form autocomplete="off" class="form-inline" id="chat-form" action="/room-post/{{.roomid}}?nick={{.nick}}" method="post">
+                        <form autocomplete="off" class="form-inline" id="chat-form" action="/room-post/{{.roomid}}/{{.whoComplainted}}?nick={{.nick}}" method="post">
                             <div class="form-group">
+
                                 <label class="sr-only" for="chat-message">Message</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">{{.nick}}</div>
