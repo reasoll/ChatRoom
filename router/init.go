@@ -25,6 +25,7 @@ func StartGin() {
 	router.GET("/users/:dd", controller.GetUserList)
 	router.GET("/testajax", controller.Testajax)
 	router.GET("/addjson", controller.Addjson)
+	router.GET("/download", controller.DownloadAll)
 
 	Router = router
 	RoomRouter("roomm")

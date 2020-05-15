@@ -8,5 +8,6 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/jinzhu/gorm v1.9.12
 	github.com/manucorporat/stats v0.0.0-20180402194714-3ba42d56d227
+	github.com/tealeg/xlsx v1.0.5
 	gopkg.in/yaml.v2 v2.2.8
 )
