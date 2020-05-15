@@ -18,14 +18,6 @@ func GetUsersById(id int) (user Users) {
 //获取全部user
 func GetUsers(isComplainted bool) (users []Users) {
 	db.Where("is_complainted = ?", isComplainted).Find(&users)
-	/*
-		if isComplainted {
-
-			db.Where("is_complainted = ?",1).Find(&users)
-		} else {
-
-			db.Where("is_complainted = ?",0).Find(&users)
-		}*/
 	fmt.Println(users)
 
 	return

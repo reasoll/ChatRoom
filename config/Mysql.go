@@ -12,13 +12,13 @@ type Mysql struct {
 
 func (mysql *Mysql) DefaultMySqlConfig() {
 	//mysql.Addr = "23.234.252.205"
-	mysql.Addr = "127.0.0.1"
+	mysql.Addr = "172.16.1.227"
 	mysql.Port = "3306"
-	//mysql.DataBaseName = "go_database"
-	mysql.DataBaseName = "ChatRoom"
+	mysql.DataBaseName = "chatroom"
+	//mysql.DataBaseName = "ChatRoom"
 	mysql.UserNmae = "root"
-	//mysql.Password = "1257983649"
-	mysql.Password = "!QAZxsw2"
+	mysql.Password = "123456"
+	//mysql.Password = "!QAZxsw2"
 }
 
 func (mysql *Mysql) InitMysqlConfig() {

@@ -23,13 +23,15 @@ func StartGin() {
 	router.POST("/room-post/:roomid/:whoComplainted", controller.RoomPOST)
 	router.GET("/stream/:roomid", controller.StreamRoom)
 	router.GET("/users/:dd", controller.GetUserList)
+	router.GET("/testajax", controller.Testajax)
+	router.GET("/addjson", controller.Addjson)
 
 	Router = router
 	RoomRouter("roomm")
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "8080"
+		port = "80"
 	}
 	if err := router.Run(":" + port); err != nil {
 		log.Panicf("error: %s", err)

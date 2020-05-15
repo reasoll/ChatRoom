@@ -3,12 +3,10 @@ package config
 var Conf Config
 
 type Config struct {
-
 	MysqlConfig Mysql
 }
 
-
-func NewConfig(){
+func NewConfig() {
 
 	var config Config
 	config.MysqlConfig.InitMysqlConfig()

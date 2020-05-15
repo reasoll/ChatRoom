@@ -154,3 +154,18 @@ func CreateRoom(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "/room/"+strconv.Itoa(chatRoom.ID))
 
 }
+
+//测试ajax
+func Testajax(c *gin.Context) {
+	var history = make([]model.Complaint, 0)
+	c.HTML(http.StatusOK, "test_ajax.templ.html", gin.H{
+		"history": history,
+	})
+}
+
+func Addjson(c *gin.Context) {
+	historyList := model.GetComplaints(1)
+
+	c.JSON(200, historyList)
+
+}

@@ -12,9 +12,9 @@ var db *gorm.DB
 func Setup() {
 	var mySqlConfig = config.Conf.MysqlConfig
 	connStr := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=true&loc=Local",
-		mySqlConfig.UserNmae,mySqlConfig.Password,mySqlConfig.Addr,mySqlConfig.Port,mySqlConfig.DataBaseName)
+		mySqlConfig.UserNmae, mySqlConfig.Password, mySqlConfig.Addr, mySqlConfig.Port, mySqlConfig.DataBaseName)
 
-	DB,err := gorm.Open("mysql",connStr)
+	DB, err := gorm.Open("mysql", connStr)
 
 	if err != nil {
 		panic(err)
