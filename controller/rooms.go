@@ -173,22 +173,40 @@ func Addjson(c *gin.Context) {
 
 func DownloadAll(c *gin.Context) {
 	var file *xlsx.File
-	var sheet *xlsx.Sheet
-	var row *xlsx.Row
-	var cell *xlsx.Cell
-	var err error
 
 	file = xlsx.NewFile()
-	sheet, err = file.AddSheet("Sheet1")
-	row = sheet.AddRow()
-	cell = row.AddCell()
-	cell.Value = "000101"
-	cell = row.AddCell()
-	cell.Value = "中文"
-	fmt.Println(err)
-	err = file.Save("MyXLSXFile.xlsx")
-	c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", "test.xlsx")) //fmt.Sprintf("attachment; filename=%s", filename)对下载的文件重命名
+
+	rooms := model.GetCharRooms()
+
+	fmt.Print(rooms)
+	for _, v := range rooms {
+		var sheet *xlsx.Sheet
+
+		sheet, _ = file.AddSheet(v.WhoComplainted)
+
+		if v.ID > 0 {
+			cs := model.GetComplaints(v.ID)
+			fmt.Print(cs)
+			var row *xlsx.Row
+			var cell *xlsx.Cell
+
+			for _, j := range cs {
+				row = sheet.AddRow()
+				cell = row.AddCell()
+				cell.Value = j.Username
+				cell = row.AddCell()
+				cell.Value = j.Content
+			}
+		}
+
+	}
+
+	file.Save("MyXLSXFile.xlsx")
+	c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", "吐槽总结.xlsx")) //fmt.Sprintf("attachment; filename=%s", filename)对下载的文件重命名
 	c.Writer.Header().Add("Content-Type", "application/octet-stream")
 	c.File("MyXLSXFile.xlsx")
+
+}
+func isExists(sheets interface{}) {
 
 }

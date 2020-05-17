@@ -2,10 +2,8 @@ package main
 
 import (
 	"ChatRoom/config"
-	"ChatRoom/controller"
 	"ChatRoom/model"
 	"ChatRoom/router"
-	"fmt"
 	"time"
 )
 
@@ -30,8 +28,8 @@ func timer() {
 			//	controller.BuidRandomRoom()
 			//	fmt.Println("任务 at %v", time.Now().Format("2006-01-02 15:04:05"))
 			//}
-			fmt.Println("任务 at %v", time.Now().Format("2006-01-02 15:04:05"))
-			controller.BuidRandomRoom()
+			//fmt.Println("任务 at %v", time.Now().Format("2006-01-02 15:04:05"))
+			//controller.BuidRandomRoom()
 		}
 	}()
 }
